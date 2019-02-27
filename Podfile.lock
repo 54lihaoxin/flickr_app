@@ -1,0 +1,21 @@
+PODS:
+  - FlickrFoundation (0.0.1)
+
+DEPENDENCIES:
+  - FlickrFoundation (from `https://github.com/54lihaoxin/flickr_foundation.git`)
+
+EXTERNAL SOURCES:
+  FlickrFoundation:
+    :git: https://github.com/54lihaoxin/flickr_foundation.git
+
+CHECKOUT OPTIONS:
+  FlickrFoundation:
+    :commit: 89f46d9816373b558f395a06964cbaac7ea07a7d
+    :git: https://github.com/54lihaoxin/flickr_foundation.git
+
+SPEC CHECKSUMS:
+  FlickrFoundation: 27cce76c6e34ed39bd7d09775cd9d77ee69c9b2a
+
+PODFILE CHECKSUM: 3a109aca5a560879a42e82e5e812241e8b344e34
+
+COCOAPODS: 1.6.1
