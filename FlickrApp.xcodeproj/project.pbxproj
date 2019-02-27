@@ -36,6 +36,7 @@
 		ACB2CA7322263A18009EBF05 /* FlickrAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickrAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB2CA7722263A18009EBF05 /* FlickrAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAppTests.swift; sourceTree = "<group>"; };
 		ACB2CA7922263A18009EBF05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACB2CA8222263A78009EBF05 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +84,7 @@
 				ACB2CA6922263A18009EBF05 /* Assets.xcassets */,
 				ACB2CA6B22263A18009EBF05 /* LaunchScreen.storyboard */,
 				ACB2CA6E22263A18009EBF05 /* Info.plist */,
+				ACB2CA8222263A78009EBF05 /* Podfile */,
 			);
 			path = FlickrApp;
 			sourceTree = "<group>";
