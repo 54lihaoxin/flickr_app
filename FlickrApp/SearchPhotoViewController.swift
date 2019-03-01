@@ -9,4 +9,20 @@
 import FlickrFoundation
 import UIKit
 
-final class SearchPhotoViewController: UIViewController {}
+final class SearchPhotoViewController: UIViewController {
+    enum Color {
+        static let backgroundColor = UIColor.white
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpView()
+    }
+}
+
+private extension SearchPhotoViewController {
+    func setUpView() {
+        title = "FLICKR_APP_NAME".localized()
+        view.backgroundColor = Color.backgroundColor
+    }
+}
