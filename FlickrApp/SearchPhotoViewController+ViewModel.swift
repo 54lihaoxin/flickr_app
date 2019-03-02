@@ -11,7 +11,11 @@ import FlickrFoundation
 
 extension SearchPhotoViewController {
     final class ViewModel {
-        let title = "FLICKR_APP_NAME".localized()
+        enum Text {
+            static let title = "FLICKR_APP_NAME".localized()
+            static let searchBarPlaceholder = "SEARCH_VIEW.SEARCH_BAR_PLACEHOLDER".localized()
+        }
+
         let photos: [PhotoItem]
 
         init() {  // TODO

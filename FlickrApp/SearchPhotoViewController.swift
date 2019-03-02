@@ -26,6 +26,13 @@ final class SearchPhotoViewController: UIViewController {
     private var viewModel = ViewModel()
     private var photoCellSize = CGSize.zero // update after we know the view dimension
 
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.delegate = self
+        searchBar.placeholder = ViewModel.Text.searchBarPlaceholder
+        return searchBar
+    }()
+
     private lazy var photoCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.dataSource = self
@@ -47,6 +54,20 @@ final class SearchPhotoViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updatePhotoCellSize(viewWidth: view.window?.frame.width ?? 0)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension SearchPhotoViewController: UISearchBarDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        print("searchBarShouldBeginEditing")
+        return true
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("searchBarSearchButtonClicked", searchBar.text ?? "")
+        searchBar.resignFirstResponder()
     }
 }
 
@@ -79,6 +100,8 @@ extension SearchPhotoViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension SearchPhotoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return photoCellSize
@@ -104,17 +127,27 @@ extension SearchPhotoViewController: UICollectionViewDelegateFlowLayout {
 
 private extension SearchPhotoViewController {
     func setUpView() {
-        title = viewModel.title
+        title = ViewModel.Text.title
         view.backgroundColor = Color.backgroundColor
 
+        setUpSearchBar()
         setUpPhotoCollectionView()
+    }
+
+    func setUpSearchBar() {
+        view.addSubview(searchBar)
+        searchBar.backgroundColor = Color.backgroundColor
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
 
     func setUpPhotoCollectionView() {
         view.addSubview(photoCollectionView)
         photoCollectionView.backgroundColor = Color.backgroundColor
         photoCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        photoCollectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        photoCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         photoCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         photoCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         photoCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true

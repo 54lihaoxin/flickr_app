@@ -17,7 +17,18 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search for photos here" translatesAutoresizingMaskIntoConstraints="NO" id="Nxo-DE-eJy">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Nxo-DE-eJy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ZZu-kD-WSq"/>
+                            <constraint firstItem="Nxo-DE-eJy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lba-nK-t0s"/>
+                            <constraint firstItem="Nxo-DE-eJy" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="pEq-Y1-yao"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Flickr App" id="yHF-is-3if"/>

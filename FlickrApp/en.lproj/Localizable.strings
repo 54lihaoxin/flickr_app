@@ -7,3 +7,5 @@
 */
 
 "FLICKR_APP_NAME" = "Flickr App";
+
+"SEARCH_VIEW.SEARCH_BAR_PLACEHOLDER" = "Search for photos here";
