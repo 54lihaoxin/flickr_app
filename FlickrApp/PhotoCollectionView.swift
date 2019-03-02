@@ -53,8 +53,7 @@ extension PhotoCollectionView: UICollectionViewDelegate {
             assertionFailure("\(#function) unexpected cell type \(type(of: cell))")
             return
         }
-        let photo = photos[indexPath.item]
-        photoCell.configure(title: photo.title, photoURL: photo.photoURL)
+        photoCell.configure(withPhoto: photos[indexPath.item])
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

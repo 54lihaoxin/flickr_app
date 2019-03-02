@@ -35,8 +35,8 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
         reset()
     }
 
-    func configure(title: String, photoURL: URL) {
-        imageView.loadImage(fromURL: photoURL) { _ in
+    func configure(withPhoto photo: Photo) {
+        imageView.loadImage(fromURL: photo.url) { _ in
 //            print("\(#function) load image successfully: \(successful)")
         }
     }
