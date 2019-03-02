@@ -17,6 +17,9 @@
 		AC5C6EE7222A3D550095DC14 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EE6222A3D550095DC14 /* UIImage+Extensions.swift */; };
 		AC5C6EE9222A3FAB0095DC14 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EE8222A3FAB0095DC14 /* ImageCache.swift */; };
 		AC5C6EEC222ADB270095DC14 /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EEB222ADB270095DC14 /* SearchHistory.swift */; };
+		AC5C6EEE222AE3A50095DC14 /* TextTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EED222AE3A50095DC14 /* TextTableView.swift */; };
+		AC5C6EF0222AEB1E0095DC14 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EEF222AEB1E0095DC14 /* UITableView+Extensions.swift */; };
+		AC5C6EF2222AEFB20095DC14 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EF1222AEFB20095DC14 /* Constants.swift */; };
 		AC76780E2229658F001D2093 /* SearchPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76780C2229658F001D2093 /* SearchPhotoViewController.swift */; };
 		ACB2CA6322263A15009EBF05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2CA6222263A15009EBF05 /* AppDelegate.swift */; };
 		ACB2CA6A22263A18009EBF05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACB2CA6922263A18009EBF05 /* Assets.xcassets */; };
@@ -47,6 +50,9 @@
 		AC5C6EE6222A3D550095DC14 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		AC5C6EE8222A3FAB0095DC14 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		AC5C6EEB222ADB270095DC14 /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
+		AC5C6EED222AE3A50095DC14 /* TextTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableView.swift; sourceTree = "<group>"; };
+		AC5C6EEF222AEB1E0095DC14 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
+		AC5C6EF1222AEFB20095DC14 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AC76780C2229658F001D2093 /* SearchPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewController.swift; sourceTree = "<group>"; };
 		ACB2CA5F22263A15009EBF05 /* FlickrApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB2CA6222263A15009EBF05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +92,7 @@
 				AC5C6ED62229F8A00095DC14 /* String+Extensions.swift */,
 				AC5C6EE2222A15700095DC14 /* UICollectionView+Extensions.swift */,
 				AC5C6EE6222A3D550095DC14 /* UIImage+Extensions.swift */,
+				AC5C6EEF222AEB1E0095DC14 /* UITableView+Extensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -105,6 +112,7 @@
 				AC5C6EE4222A2C760095DC14 /* PhotoCollectionViewCell.swift */,
 				AC76780C2229658F001D2093 /* SearchPhotoViewController.swift */,
 				AC5C6EDE222A11AC0095DC14 /* SearchPhotoViewController+ViewModel.swift */,
+				AC5C6EED222AE3A50095DC14 /* TextTableView.swift */,
 			);
 			name = UserInterface;
 			sourceTree = "<group>";
@@ -137,6 +145,7 @@
 				AC76781022296598001D2093 /* UserInterface */,
 				AC5C6EEA222A3FB10095DC14 /* Utility */,
 				ACB2CA6222263A15009EBF05 /* AppDelegate.swift */,
+				AC5C6EF1222AEFB20095DC14 /* Constants.swift */,
 				ACB2CA6922263A18009EBF05 /* Assets.xcassets */,
 				ACB2CA6B22263A18009EBF05 /* LaunchScreen.storyboard */,
 				AC5C6EDD2229F9A30095DC14 /* Localizable.strings */,
@@ -343,9 +352,12 @@
 			files = (
 				AC5C6EE1222A153A0095DC14 /* NSObject+Extensions.swift in Sources */,
 				ACB2CA6322263A15009EBF05 /* AppDelegate.swift in Sources */,
+				AC5C6EEE222AE3A50095DC14 /* TextTableView.swift in Sources */,
+				AC5C6EF0222AEB1E0095DC14 /* UITableView+Extensions.swift in Sources */,
 				AC5C6EEC222ADB270095DC14 /* SearchHistory.swift in Sources */,
 				AC5C6EE3222A15700095DC14 /* UICollectionView+Extensions.swift in Sources */,
 				AC5C6EE9222A3FAB0095DC14 /* ImageCache.swift in Sources */,
+				AC5C6EF2222AEFB20095DC14 /* Constants.swift in Sources */,
 				AC5C6ED72229F8A00095DC14 /* String+Extensions.swift in Sources */,
 				AC5C6EE5222A2C760095DC14 /* PhotoCollectionViewCell.swift in Sources */,
 				AC5C6EDF222A11AC0095DC14 /* SearchPhotoViewController+ViewModel.swift in Sources */,

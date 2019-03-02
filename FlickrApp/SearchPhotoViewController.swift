@@ -41,6 +41,8 @@ final class SearchPhotoViewController: UIViewController {
         return collectionView
     }()
 
+    private weak var searchHistoryView: TextTableView?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
@@ -61,7 +63,7 @@ final class SearchPhotoViewController: UIViewController {
 
 extension SearchPhotoViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        print("TODO: show list of search terms:", SearchHistory.allSearchTerms)
+        showSearchHistory()
         return true
     }
 
@@ -69,6 +71,7 @@ extension SearchPhotoViewController: UISearchBarDelegate {
         if let searchTerm = searchBar.text {
             SearchHistory.addSearchTerm(text: searchTerm)
         }
+        dismissSearchHistory()
         searchBar.resignFirstResponder()
     }
 }
@@ -125,6 +128,15 @@ extension SearchPhotoViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - TextTableViewDelegate
+
+extension SearchPhotoViewController: TextTableViewDelegate {
+    func textTableView(_ textTableView: TextTableView, didSelectText text: String) {
+        print("didSelect", text)
+        dismissSearchHistory()
+    }
+}
+
 // MARK: - private
 
 private extension SearchPhotoViewController {
@@ -160,5 +172,40 @@ private extension SearchPhotoViewController {
         let cellWidth = floor((viewWidth - Dimension.padding) / CGFloat(numberOfCellsPerRow) - Dimension.padding)
         photoCellSize = CGSize(width: cellWidth, height: cellWidth)
         photoCollectionView.collectionViewLayout.invalidateLayout()
+    }
+
+    func showSearchHistory() {
+        if let prevSearchHistoryView = searchHistoryView {
+            prevSearchHistoryView.removeFromSuperview()
+        }
+
+        let newSearchHistoryView = TextTableView(stringArray: SearchHistory.allSearchTerms, unownedDelegate: self)
+        self.searchHistoryView = newSearchHistoryView
+        view.addSubview(newSearchHistoryView)
+        newSearchHistoryView.translatesAutoresizingMaskIntoConstraints = false
+        newSearchHistoryView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
+        newSearchHistoryView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        newSearchHistoryView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        newSearchHistoryView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        newSearchHistoryView.alpha = 0
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: Constant.defaultAnimationDuration) {
+                newSearchHistoryView.alpha = 1
+            }
+        }
+    }
+
+    func dismissSearchHistory() {
+        guard let searchHistoryView = searchHistoryView else {
+            return
+        }
+
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: Constant.defaultAnimationDuration, animations: {
+                searchHistoryView.alpha = 0
+            }, completion: { _ in
+                searchHistoryView.removeFromSuperview()
+            })
+        }
     }
 }
