@@ -38,7 +38,7 @@ final class SearchPhotoViewController: UIViewController {
     }()
 
     private lazy var photoCollectionView = PhotoCollectionView(photos: viewModel.photos, unownedDelegate: self)
-    
+
     private weak var searchHistoryView: TextTableView?
 
     override func viewDidLoad() {
@@ -81,11 +81,11 @@ extension SearchPhotoViewController: PhotoCollectionViewDelegate {
     var photoCollectionViewPadding: CGFloat {
         return Dimension.padding
     }
-    
+
     var photoCollectionViewCellSize: CGSize {
         return photoCellSize
     }
-    
+
     func photoCollectionView(_ photoCollectionView: PhotoCollectionView, didSelectPhoto photo: Photo) {
         // TODO
         print("didSelectPhoto", photo.title)
@@ -186,7 +186,7 @@ private extension SearchPhotoViewController {
                                                selector: #selector(handleShowKeyboardNotification(_:)),
                                                name: UIWindow.keyboardWillShowNotification,
                                                object: nil)
-        
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleHideKeyboardNotification(_:)),
                                                name: UIWindow.keyboardWillHideNotification,
