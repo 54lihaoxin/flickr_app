@@ -14,15 +14,15 @@ protocol SearchPhotoViewControllerDataSource {
 }
 
 final class SearchPhotoViewController: UIViewController {
-    enum Color {
+    private enum Color {
         static let backgroundColor = UIColor.white
     }
 
-    enum Constant {
+    private enum Constant {
         static let searchHistoryAnimationDuration: TimeInterval = 0.2
     }
 
-    enum Dimension {
+    private enum Dimension {
         static let minimumPhotoCellWidth: CGFloat = 150
         static let padding: CGFloat = 12
     }
