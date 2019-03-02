@@ -10,13 +10,25 @@ import Foundation
 import UIKit
 
 final class PhotoCollectionViewCell: UICollectionViewCell {
+    enum Color {
+        static let backgroundColor = UIColor.white
+    }
+
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView(frame: .zero)
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = Color.backgroundColor
+        return imageView
+    }()
+
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        reset()
+        setUp()
     }
 
     override func prepareForReuse() {
@@ -25,8 +37,9 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(title: String, photoURL: URL) {
-        // TODO
-        print("\(#function) \(photoURL) \(title)")
+        imageView.loadImage(fromURL: photoURL) { _ in
+//            print("\(#function) load image successfully: \(successful)")
+        }
     }
 }
 
@@ -34,6 +47,21 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
 private extension PhotoCollectionViewCell {
     func reset() {
-        contentView.backgroundColor = .red
+        imageView.image = nil
+    }
+
+    func setUp() {
+        contentView.backgroundColor = Color.backgroundColor
+        setUpImageView()
+        reset()
+    }
+
+    func setUpImageView() {
+        contentView.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
 }
