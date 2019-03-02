@@ -14,6 +14,7 @@
 		AC5C6EE1222A153A0095DC14 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EE0222A153A0095DC14 /* NSObject+Extensions.swift */; };
 		AC5C6EE3222A15700095DC14 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EE2222A15700095DC14 /* UICollectionView+Extensions.swift */; };
 		AC5C6EE5222A2C760095DC14 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EE4222A2C760095DC14 /* PhotoCollectionViewCell.swift */; };
+		AC5C6EE7222A3D550095DC14 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EE6222A3D550095DC14 /* UIImage+Extensions.swift */; };
 		AC5C6EE9222A3FAB0095DC14 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EE8222A3FAB0095DC14 /* ImageCache.swift */; };
 		AC76780E2229658F001D2093 /* SearchPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76780C2229658F001D2093 /* SearchPhotoViewController.swift */; };
 		ACB2CA6322263A15009EBF05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2CA6222263A15009EBF05 /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 		AC5C6EE0222A153A0095DC14 /* NSObject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extensions.swift"; sourceTree = "<group>"; };
 		AC5C6EE2222A15700095DC14 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		AC5C6EE4222A2C760095DC14 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		AC5C6EE6222A3D550095DC14 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		AC5C6EE8222A3FAB0095DC14 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		AC76780C2229658F001D2093 /* SearchPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewController.swift; sourceTree = "<group>"; };
 		ACB2CA5F22263A15009EBF05 /* FlickrApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +83,7 @@
 				AC5C6EE0222A153A0095DC14 /* NSObject+Extensions.swift */,
 				AC5C6ED62229F8A00095DC14 /* String+Extensions.swift */,
 				AC5C6EE2222A15700095DC14 /* UICollectionView+Extensions.swift */,
+				AC5C6EE6222A3D550095DC14 /* UIImage+Extensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				AC5C6EE5222A2C760095DC14 /* PhotoCollectionViewCell.swift in Sources */,
 				AC5C6EDF222A11AC0095DC14 /* SearchPhotoViewController+ViewModel.swift in Sources */,
 				AC76780E2229658F001D2093 /* SearchPhotoViewController.swift in Sources */,
+				AC5C6EE7222A3D550095DC14 /* UIImage+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
