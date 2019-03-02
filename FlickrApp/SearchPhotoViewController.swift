@@ -232,10 +232,13 @@ private extension SearchPhotoViewController {
             assertionFailure("\(#function) keyboardEndFrame is nil")
             return
         }
-        searchHistoryView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardEndFrame.height, right: 0)
+        let inset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardEndFrame.height, right: 0)
+        searchHistoryView?.contentInset = inset
+        searchHistoryView?.scrollIndicatorInsets = inset
     }
 
     @objc func handleHideKeyboardNotification(_ notification: Notification) {
-        searchHistoryView?.contentInset = UIEdgeInsets.zero
+        searchHistoryView?.contentInset = .zero
+        searchHistoryView?.scrollIndicatorInsets = .zero
     }
 }
