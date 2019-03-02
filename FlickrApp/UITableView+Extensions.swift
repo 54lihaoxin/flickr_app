@@ -6,7 +6,6 @@
 //  Copyright © 2019 Haoxin Li. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 extension UITableView {
