@@ -9,8 +9,13 @@
 import UIKit
 
 final class PhotoCollectionViewCell: UICollectionViewCell {
-    enum Color {
+    private enum Color {
         static let backgroundColor = UIColor.white
+        static let labelBackgroundColor = UIColor.white.withAlphaComponent(0.7)
+    }
+
+    private enum Dimension {
+        static let titleLabelHeight: CGFloat = 24
     }
 
     private lazy var imageView: UIImageView = {
@@ -19,6 +24,13 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = Color.backgroundColor
         return imageView
+    }()
+
+    private lazy var titleLabel: UILabel = {
+        let label =  UILabel(frame: .zero)
+        label.backgroundColor = Color.labelBackgroundColor
+        label.textAlignment = .center
+        return label
     }()
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,6 +48,7 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(withPhoto photo: Photo) {
+        titleLabel.text = photo.title
         imageView.loadImage(fromURL: photo.url) { _ in
 //            print("\(#function) load image successfully: \(successful)")
         }
@@ -47,11 +60,13 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 private extension PhotoCollectionViewCell {
     func reset() {
         imageView.image = nil
+        titleLabel.text = nil
     }
 
     func setUp() {
         contentView.backgroundColor = Color.backgroundColor
         setUpImageView()
+        setUpTitle()
         reset()
     }
 
@@ -62,5 +77,14 @@ private extension PhotoCollectionViewCell {
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
+    
+    func setUpTitle() {
+        contentView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: Dimension.titleLabelHeight).isActive = true
     }
 }
