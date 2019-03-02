@@ -31,6 +31,8 @@ final class TextTableView: UITableView {
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension TextTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stringArray.count
@@ -40,6 +42,8 @@ extension TextTableView: UITableViewDataSource {
         return tableView.dequeueCell(cellType: UITableViewCell.self, for: indexPath)
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension TextTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
