@@ -15,10 +15,20 @@ extension SearchPhotoViewController {
             static let searchBarPlaceholder = "SEARCH_VIEW.SEARCH_BAR_PLACEHOLDER".localized()
         }
 
+        let searchTerm: String
+        let pageNumber: Int
         let photos: [Photo]
+        let totalPageCount: Int
 
-        init() {  // TODO
-            photos = Array(repeating: Photo(), count: 25)
+        static var emptyModel: ViewModel {
+            return ViewModel(searchTerm: "", pageNumber: 1, photos: [], totalPageCount: 0)
+        }
+
+        init(searchTerm: String, pageNumber: Int, photos: [Photo], totalPageCount: Int) {
+            self.searchTerm = searchTerm
+            self.pageNumber = pageNumber
+            self.photos = photos
+            self.totalPageCount = totalPageCount
         }
     }
 }

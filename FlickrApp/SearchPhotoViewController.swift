@@ -27,7 +27,7 @@ final class SearchPhotoViewController: UIViewController {
         static let padding: CGFloat = 12
     }
 
-    private var viewModel = ViewModel()
+    private var viewModel = ViewModel.emptyModel
     private var photoCellSize = CGSize.zero // update after we know the view dimension
 
     private lazy var searchBar: UISearchBar = {
@@ -45,6 +45,7 @@ final class SearchPhotoViewController: UIViewController {
         super.viewDidLoad()
         setUpView()
         registerKeyboardNotifications()
+        searchBar.becomeFirstResponder()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -67,11 +68,7 @@ extension SearchPhotoViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if let searchTerm = searchBar.text {
-            SearchHistory.addSearchTerm(text: searchTerm)
-        }
-        dismissSearchHistory()
-        searchBar.resignFirstResponder()
+        searchForSearchTerm(searchBar.text ?? "", pageNumber: 1)
     }
 }
 
@@ -96,12 +93,22 @@ extension SearchPhotoViewController: PhotoCollectionViewDelegate {
 
 extension SearchPhotoViewController: TextTableViewDelegate {
     func textTableView(_ textTableView: TextTableView, didSelectText text: String) {
-        print("didSelect", text)
-        dismissSearchHistory()
+        searchForSearchTerm(text, pageNumber: 1)
     }
 }
 
-// MARK: - private
+// MARK: - private business
+
+private extension SearchPhotoViewController {
+    func updateViewModel(_ viewModel: ViewModel) {
+        self.viewModel = viewModel
+        DispatchQueue.main.async {
+            self.photoCollectionView.updatePhotos(viewModel.photos)
+        }
+    }
+}
+
+// MARK: - private view layout
 
 private extension SearchPhotoViewController {
     func setUpView() {
@@ -139,6 +146,31 @@ private extension SearchPhotoViewController {
     }
 }
 
+// MARK: - private search handling
+
+private extension SearchPhotoViewController {
+    func searchForSearchTerm(_ searchTerm: String, pageNumber: Int) {
+        dismissSearchHistory()
+
+        guard !searchTerm.isEmpty else {
+            return
+        }
+        searchBar.text = searchTerm
+        SearchHistory.addSearchTerm(text: searchTerm)
+        KeywordSearchManager.shared.searchPhotos(searchTerm: searchTerm, pageNumber: pageNumber) { result in
+            switch result {
+            case let .success(searchTerm, pageNumber, photos, totalPageCount):
+                self.updateViewModel(ViewModel(searchTerm: searchTerm,
+                                               pageNumber: pageNumber,
+                                               photos: photos.compactMap { Photo(flickrPhoto: $0) },
+                                               totalPageCount: totalPageCount))
+            case let .failure(errorMessage):
+                print("searchForSearchTerm show errorMessage: \(errorMessage)") // TODO: show alert
+            }
+        }
+    }
+}
+
 // MARK: - private search history handling
 
 private extension SearchPhotoViewController {
@@ -164,6 +196,8 @@ private extension SearchPhotoViewController {
     }
 
     func dismissSearchHistory() {
+        searchBar.resignFirstResponder()
+
         guard let searchHistoryView = searchHistoryView else {
             return
         }

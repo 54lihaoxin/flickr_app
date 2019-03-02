@@ -15,7 +15,7 @@ protocol PhotoCollectionViewDelegate: class {
 }
 
 final class PhotoCollectionView: UICollectionView {
-    private let photos: [Photo]
+    private var photos: [Photo]
     private unowned let photoCollectionViewDelegate: PhotoCollectionViewDelegate
 
     required init?(coder aDecoder: NSCoder) {
@@ -30,6 +30,12 @@ final class PhotoCollectionView: UICollectionView {
         dataSource = self
         delegate = self
         registerCell(cellType: PhotoCollectionViewCell.self)
+    }
+
+    func updatePhotos(_ photos: [Photo]) {
+        self.photos = photos
+        contentOffset = .zero
+        reloadData()
     }
 }
 
