@@ -33,14 +33,8 @@ final class SearchPhotoViewController: UIViewController {
         return searchBar
     }()
 
-    private lazy var photoCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.registerCell(cellType: PhotoCollectionViewCell.self)
-        return collectionView
-    }()
-
+    private lazy var photoCollectionView = PhotoCollectionView(photos: viewModel.photos, unownedDelegate: self)
+    
     private weak var searchHistoryView: TextTableView?
 
     override func viewDidLoad() {
@@ -77,55 +71,20 @@ extension SearchPhotoViewController: UISearchBarDelegate {
     }
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - PhotoCollectionViewDelegate
 
-extension SearchPhotoViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.photos.count
+extension SearchPhotoViewController: PhotoCollectionViewDelegate {
+    var photoCollectionViewPadding: CGFloat {
+        return Dimension.padding
     }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueCell(cellType: PhotoCollectionViewCell.self, for: indexPath)
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension SearchPhotoViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let photoCell = cell as? PhotoCollectionViewCell else {
-            assertionFailure("\(#function) unexpected cell type \(type(of: cell))")
-            return
-        }
-        let photo = viewModel.photos[indexPath.item]
-        photoCell.configure(title: photo.title, photoURL: photo.photoURL)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension SearchPhotoViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+    var photoCollectionViewCellSize: CGSize {
         return photoCellSize
     }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: Dimension.padding,
-                            left: Dimension.padding,
-                            bottom: Dimension.padding,
-                            right: Dimension.padding)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return Dimension.padding
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return Dimension.padding
+    
+    func photoCollectionView(_ photoCollectionView: PhotoCollectionView, didSelectPhoto photo: Photo) {
+        // TODO
+        print("didSelectPhoto", photo.title)
     }
 }
 
