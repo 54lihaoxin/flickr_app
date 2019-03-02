@@ -174,7 +174,11 @@ private extension SearchPhotoViewController {
         photoCellSize = CGSize(width: cellWidth, height: cellWidth)
         photoCollectionView.collectionViewLayout.invalidateLayout()
     }
+}
 
+// MARK: - private search history handling
+
+private extension SearchPhotoViewController {
     func showSearchHistory() {
         if let prevSearchHistoryView = searchHistoryView {
             prevSearchHistoryView.removeFromSuperview()
