@@ -18,6 +18,10 @@ final class SearchPhotoViewController: UIViewController {
         static let backgroundColor = UIColor.white
     }
 
+    enum Constant {
+        static let searchHistoryAnimationDuration: TimeInterval = 0.2
+    }
+
     enum Dimension {
         static let minimumPhotoCellWidth: CGFloat = 150
         static let padding: CGFloat = 12
@@ -153,7 +157,7 @@ private extension SearchPhotoViewController {
         newSearchHistoryView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         newSearchHistoryView.alpha = 0
         DispatchQueue.main.async {
-            UIView.animate(withDuration: Constant.defaultAnimationDuration) {
+            UIView.animate(withDuration: Constant.searchHistoryAnimationDuration) {
                 newSearchHistoryView.alpha = 1
             }
         }
@@ -165,7 +169,7 @@ private extension SearchPhotoViewController {
         }
 
         DispatchQueue.main.async {
-            UIView.animate(withDuration: Constant.defaultAnimationDuration, animations: {
+            UIView.animate(withDuration: Constant.searchHistoryAnimationDuration, animations: {
                 searchHistoryView.alpha = 0
             }, completion: { _ in
                 searchHistoryView.removeFromSuperview()
