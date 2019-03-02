@@ -61,12 +61,14 @@ final class SearchPhotoViewController: UIViewController {
 
 extension SearchPhotoViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        print("searchBarShouldBeginEditing")
+        print("TODO: show list of search terms:", SearchHistory.allSearchTerms)
         return true
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("searchBarSearchButtonClicked", searchBar.text ?? "")
+        if let searchTerm = searchBar.text {
+            SearchHistory.addSearchTerm(text: searchTerm)
+        }
         searchBar.resignFirstResponder()
     }
 }
