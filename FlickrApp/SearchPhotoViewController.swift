@@ -46,6 +46,7 @@ final class SearchPhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        registerKeyboardNotifications()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -207,5 +208,33 @@ private extension SearchPhotoViewController {
                 searchHistoryView.removeFromSuperview()
             })
         }
+    }
+}
+
+// MARK: - private keyboard handling
+
+private extension SearchPhotoViewController {
+    func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleShowKeyboardNotification(_:)),
+                                               name: UIWindow.keyboardWillShowNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleHideKeyboardNotification(_:)),
+                                               name: UIWindow.keyboardWillHideNotification,
+                                               object: nil)
+    }
+
+    @objc func handleShowKeyboardNotification(_ notification: Notification) {
+        guard let keyboardEndFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            assertionFailure("\(#function) keyboardEndFrame is nil")
+            return
+        }
+        searchHistoryView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardEndFrame.height, right: 0)
+    }
+
+    @objc func handleHideKeyboardNotification(_ notification: Notification) {
+        searchHistoryView?.contentInset = UIEdgeInsets.zero
     }
 }
