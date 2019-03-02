@@ -15,15 +15,10 @@ extension SearchPhotoViewController {
             static let searchBarPlaceholder = "SEARCH_VIEW.SEARCH_BAR_PLACEHOLDER".localized()
         }
 
-        let photos: [PhotoItem]
+        let photos: [Photo]
 
         init() {  // TODO
-            photos = Array(repeating: PhotoItem(), count: 25)
+            photos = Array(repeating: Photo(), count: 25)
         }
-    }
-
-    final class PhotoItem { // TODO
-        let title = "some title"
-        let photoURL = URL(string: "https://farm8.staticflickr.com/7885/46325113415_b0eeaf274b.jpg")! // TODO
     }
 }
