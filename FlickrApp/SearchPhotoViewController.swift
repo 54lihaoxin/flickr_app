@@ -246,7 +246,8 @@ private extension SearchPhotoViewController {
             assertionFailure("\(#function) keyboardEndFrame is nil")
             return
         }
-        let inset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardEndFrame.height, right: 0)
+        let actualKeyboardHeight = keyboardEndFrame.height - view.safeAreaInsets.bottom
+        let inset = UIEdgeInsets(top: 0, left: 0, bottom: actualKeyboardHeight, right: 0)
         searchHistoryView?.contentInset = inset
         searchHistoryView?.scrollIndicatorInsets = inset
     }
