@@ -84,14 +84,6 @@ extension SearchPhotoViewController: KeyboardToolbarDelegate {
 // MARK: - PhotoCollectionViewDelegate
 
 extension SearchPhotoViewController: PhotoCollectionViewDelegate {
-    var photoCollectionViewPadding: CGFloat {
-        return Dimension.padding
-    }
-
-    var photoCollectionViewCellSize: CGSize {
-        return photoCellSize
-    }
-
     func photoCollectionView(_ photoCollectionView: PhotoCollectionView, didSelectPhoto photo: FlickrPhoto) {
         present(FullScreenImageViewController(imageURL: photo.url), animated: true, completion: nil)
     }
@@ -138,9 +130,9 @@ private extension SearchPhotoViewController {
 
     func updatePhotoCellSize(viewWidth: CGFloat) {
         let numberOfCellsPerRow = Int((viewWidth - Dimension.padding) / (Dimension.minimumPhotoCellWidth + Dimension.padding))
-        let cellWidth = floor((viewWidth - Dimension.padding) / CGFloat(numberOfCellsPerRow) - Dimension.padding)
-        photoCellSize = CGSize(width: cellWidth, height: cellWidth)
-        photoCollectionView.collectionViewLayout.invalidateLayout()
+        let cellDimension = floor((viewWidth - Dimension.padding) / CGFloat(numberOfCellsPerRow) - Dimension.padding)
+        let cellSize = CGSize(width: cellDimension, height: cellDimension) // square cell
+        photoCollectionView.updateLayoutParameters(padding: Dimension.padding, cellSize: cellSize)
     }
 }
 

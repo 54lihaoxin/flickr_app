@@ -19,14 +19,15 @@ protocol PhotoCollectionViewDataSource: class {
 }
 
 protocol PhotoCollectionViewDelegate: class {
-    var photoCollectionViewPadding: CGFloat { get }
-    var photoCollectionViewCellSize: CGSize { get }
     func photoCollectionView(_ photoCollectionView: PhotoCollectionView, didSelectPhoto photo: FlickrPhoto)
 }
 
 final class PhotoCollectionView: UICollectionView {
     private var photoDataSource: PhotoCollectionViewDataSource
     private unowned let photoCollectionViewDelegate: PhotoCollectionViewDelegate
+
+    private var padding: CGFloat = 0
+    private var cellSize: CGSize = .zero
 
     required init?(coder aDecoder: NSCoder) {
         fatalError()
@@ -41,6 +42,15 @@ final class PhotoCollectionView: UICollectionView {
         delegate = self
         prefetchDataSource = self
         registerCell(cellType: PhotoCollectionViewCell.self)
+    }
+
+    func updateLayoutParameters(padding: CGFloat, cellSize: CGSize) {
+        guard self.padding != padding, self.cellSize != cellSize else {
+            return
+        }
+        self.padding = padding
+        self.cellSize = cellSize
+        collectionViewLayout.invalidateLayout()
     }
 
     func updatePhotoDataSource(_ photoDataSource: PhotoCollectionViewDataSource) {
@@ -120,22 +130,19 @@ extension PhotoCollectionView: UICollectionViewDelegate {
 
 extension PhotoCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return photoCollectionViewDelegate.photoCollectionViewCellSize
+        return cellSize
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: photoCollectionViewDelegate.photoCollectionViewPadding,
-                            left: photoCollectionViewDelegate.photoCollectionViewPadding,
-                            bottom: photoCollectionViewDelegate.photoCollectionViewPadding,
-                            right: photoCollectionViewDelegate.photoCollectionViewPadding)
+        return UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return photoCollectionViewDelegate.photoCollectionViewPadding
+        return padding
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return photoCollectionViewDelegate.photoCollectionViewPadding
+        return padding
     }
 }
 
