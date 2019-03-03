@@ -10,8 +10,6 @@ import Foundation
 
 /**
  This is basically a first-in-first-out, no-duplicate, latest-first queue of search terms.
- 
- TODO: thread-safety
  */
 struct SearchHistory {
     private static let maxItems = 20
