@@ -29,6 +29,8 @@ final class PhotoCollectionView: UICollectionView {
     private var padding: CGFloat = 0
     private var cellSize: CGSize = .zero
 
+    private var numberOfFetchItemsBeforeScrolling = 0 // for deferring the reload effort to after stop scrolling for smoother scrolling
+
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
@@ -64,13 +66,14 @@ final class PhotoCollectionView: UICollectionView {
         let searchTerm = photoDataSource.searchTerm
         let oldPhotoCount = photoDataSource.fetchedPhotoCount
         photoDataSource.fetchMorePhotos { [weak self] successful in
-            guard let self = self,
-                successful,
-                searchTerm == self.photoDataSource.searchTerm else {
-                return
-            }
-
             DispatchQueue.main.async {
+                guard let self = self,
+                    successful,
+                    !self.isScrolling, // if is scrolling, reload after stop scrolling
+                    searchTerm == self.photoDataSource.searchTerm else {
+                        return
+                }
+
                 if oldPhotoCount == 0 {
                     self.reloadData()
                 } else {
@@ -146,6 +149,25 @@ extension PhotoCollectionView: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - UIScrollViewDelegate
+
+extension PhotoCollectionView: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        numberOfFetchItemsBeforeScrolling = photoDataSource.fetchedPhotoCount
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard !decelerate else {
+            return
+        }
+        reloadData(oldPhotoCount: numberOfFetchItemsBeforeScrolling, newPhotoCount: photoDataSource.fetchedPhotoCount)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        reloadData(oldPhotoCount: numberOfFetchItemsBeforeScrolling, newPhotoCount: photoDataSource.fetchedPhotoCount)
+    }
+}
+
 // MARK: - private
 
 extension PhotoCollectionView {
@@ -168,21 +190,22 @@ extension PhotoCollectionView {
     }
 
     func reloadData(oldPhotoCount: Int, newPhotoCount: Int) {
-        print("\(#function) reload range: [\(oldPhotoCount), \(newPhotoCount)), total: \(photoDataSource.totalNumberOfPhotos)")
-
         guard oldPhotoCount < newPhotoCount else {
             return
         }
+
+        print("\(#function) reload range: [\(oldPhotoCount), \(newPhotoCount)), total: \(photoDataSource.totalNumberOfPhotos)")
 
         DispatchQueue.main.async {
             let indexPathsToReload = self.indexPathsForVisibleItems.filter({
                 oldPhotoCount <= $0.item && $0.item < newPhotoCount
             })
 
-            print("\(#function) actual reload item count: \(indexPathsToReload.count)")
             guard !indexPathsToReload.isEmpty else {
                 return
             }
+
+            print("\(#function) actual reload item count: \(indexPathsToReload.count)")
             self.reloadItems(at: indexPathsToReload)
         }
     }

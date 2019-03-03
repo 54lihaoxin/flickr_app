@@ -9,6 +9,10 @@
 import UIKit
 
 extension UICollectionView {
+    var isScrolling: Bool {
+        return self.isDragging || self.isDecelerating
+    }
+
     func registerCell<T: UICollectionViewCell>(cellType: T.Type,
                                                withReuseIdentifier identifier: String = T.typeDescription) {
         register(T.self, forCellWithReuseIdentifier: identifier)
