@@ -169,8 +169,10 @@ private extension SearchPhotoViewController {
         guard !searchTerm.isEmpty else {
             return
         }
+
         searchBar.text = searchTerm
         SearchHistory.addSearchTerm(text: searchTerm)
+
         KeywordSearchManager.shared.searchPhotos(searchTerm: searchTerm, pageNumber: pageNumber) { result in
             switch result {
             case let .success(searchTerm, pageNumber, photos, totalPageCount):
@@ -179,7 +181,7 @@ private extension SearchPhotoViewController {
                                                photos: photos.compactMap { Photo(flickrPhoto: $0) },
                                                totalPageCount: totalPageCount))
             case let .failure(errorMessage):
-                print("searchForSearchTerm show errorMessage: \(errorMessage)") // TODO: show alert
+                UIAlertController.presentErrorAlert(message: errorMessage, fromViewController: self)
             }
         }
     }
