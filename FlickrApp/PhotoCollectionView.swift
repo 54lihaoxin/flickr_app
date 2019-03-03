@@ -39,6 +39,7 @@ final class PhotoCollectionView: UICollectionView {
 
         dataSource = self
         delegate = self
+        prefetchDataSource = self
         registerCell(cellType: PhotoCollectionViewCell.self)
     }
 
@@ -59,9 +60,25 @@ final class PhotoCollectionView: UICollectionView {
                 return
             }
 
-            self.reloadData(oldPhotoCount: oldPhotoCount,
-                            newPhotoCount: photoDataSource.fetchedPhotoCount)
+            DispatchQueue.main.async {
+                if oldPhotoCount == 0 {
+                    self.reloadData()
+                } else {
+                    self.reloadData(oldPhotoCount: oldPhotoCount,
+                                    newPhotoCount: photoDataSource.fetchedPhotoCount)
+                }
+            }
         }
+    }
+}
+
+extension PhotoCollectionView: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let maxIndex = indexPaths.reduce(0) { max($0, $1.item) }
+        guard photoDataSource.fetchedPhotoCount <= maxIndex else {
+            return
+        }
+        fetchMoreItems()
     }
 }
 
@@ -85,14 +102,10 @@ extension PhotoCollectionView: UICollectionViewDelegate {
             assertionFailure("\(#function) unexpected cell type \(type(of: cell))")
             return
         }
-
-        if indexPath.item < photoDataSource.fetchedPhotoCount {
-            photoCell.configure(withPhoto: photoDataSource.photo(at: indexPath.item))
-        } else { // need to fetch data
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.fetchMoreItems()
-            }
+        guard indexPath.item < photoDataSource.fetchedPhotoCount else {
+            return
         }
+        photoCell.configure(withPhoto: photoDataSource.photo(at: indexPath.item))
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -160,11 +173,10 @@ extension PhotoCollectionView {
             })
 
             print("\(#function) actual reload item count: \(indexPathsToReload.count)")
-            if indexPathsToReload.isEmpty {
-                self.reloadData()
-            } else {
-                self.reloadItems(at: indexPathsToReload)
+            guard !indexPathsToReload.isEmpty else {
+                return
             }
+            self.reloadItems(at: indexPathsToReload)
         }
     }
 }
