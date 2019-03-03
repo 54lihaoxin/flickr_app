@@ -76,6 +76,7 @@ private extension FullScreenImageViewController {
         dismissButton.widthAnchor.constraint(equalToConstant: Dimension.dismissButtonDimension).isActive = true
         dismissButton.heightAnchor.constraint(equalToConstant: Dimension.dismissButtonDimension).isActive = true
         dismissButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Dimension.padding).isActive = true
+        dismissButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         dismissButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Dimension.padding).isActive = true
     }
 
