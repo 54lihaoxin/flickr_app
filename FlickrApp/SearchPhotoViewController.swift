@@ -97,8 +97,7 @@ extension SearchPhotoViewController: PhotoCollectionViewDelegate {
     }
 
     func photoCollectionView(_ photoCollectionView: PhotoCollectionView, didSelectPhoto photo: Photo) {
-        // TODO
-        print("didSelectPhoto", photo.title)
+        present(FullScreenImageViewController(imageURL: photo.url), animated: true, completion: nil)
     }
 }
 
