@@ -90,12 +90,21 @@ private extension PhotoCollectionViewCell {
 }
 
 private extension URL {
-    // URL of 150x150 square image. See documentation at https://www.flickr.com/services/api/misc.urls.html
+    // See documentation at https://www.flickr.com/services/api/misc.urls.html
     var thumbnailURL: URL {
         // FIXME: The current implementation of generating the thumbnail URL is making some assumptions that might
         // break easily in future refactoring, but considering the limited resource (time), this replace suffix
         // approach is at work here.
-        guard let url = URL(string: absoluteString.replacingOccurrences(of: ".jpg", with: "_q.jpg")) else {
+        let qualitySpecifier: String
+        if UIScreen.main.scale >= 3 {
+            qualitySpecifier = "n" // n: 320 on longest side
+        } else if UIScreen.main.scale >= 2 {
+            qualitySpecifier = "m" // m: 240 on longest side
+        } else { // scale == 1
+            qualitySpecifier = "q" // q: square 150x150
+        }
+
+        guard let url = URL(string: absoluteString.replacingOccurrences(of: ".jpg", with: "_\(qualitySpecifier).jpg")) else {
             fatalError()
         }
         return url
