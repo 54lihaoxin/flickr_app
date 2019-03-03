@@ -12,9 +12,7 @@ struct Photo {
     let title: String
     let url: URL
 
-    // TODO
-    init(title: String = "some title",
-         url: URL = URL(string: "https://farm8.staticflickr.com/7885/46325113415_b0eeaf274b.jpg")!) {
+    init(title: String, url: URL) {
         self.title = title
         self.url = url
     }
