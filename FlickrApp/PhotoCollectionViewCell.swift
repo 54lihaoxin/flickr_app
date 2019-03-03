@@ -51,7 +51,7 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     func configure(withPhoto photo: FlickrPhoto) {
         titleLabel.text = photo.title
-        imageView.loadImage(fromURL: photo.url)
+        imageView.loadImage(fromURL: photo.url.thumbnailURL)
     }
 }
 
@@ -86,5 +86,18 @@ private extension PhotoCollectionViewCell {
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: Dimension.titleLabelHeight).isActive = true
+    }
+}
+
+private extension URL {
+    // URL of 150x150 square image. See documentation at https://www.flickr.com/services/api/misc.urls.html
+    var thumbnailURL: URL {
+        // FIXME: The current implementation of generating the thumbnail URL is making some assumptions that might
+        // break easily in future refactoring, but considering the limited resource (time), this replace suffix
+        // approach is at work here.
+        guard let url = URL(string: absoluteString.replacingOccurrences(of: ".jpg", with: "_q.jpg")) else {
+            fatalError()
+        }
+        return url
     }
 }
