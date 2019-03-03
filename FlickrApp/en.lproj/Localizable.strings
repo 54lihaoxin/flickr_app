@@ -13,3 +13,4 @@
 "BUTTON.CANCEL" = "Cancel";
 
 "SEARCH_VIEW.SEARCH_BAR_PLACEHOLDER" = "Search for photos here";
+"SEARCH_VIEW.NO_PHOTO_URL_ERROR_MESSAGE" = "This photo does not have a valid URL";

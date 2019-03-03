@@ -85,6 +85,10 @@ extension SearchPhotoViewController: KeyboardToolbarDelegate {
 
 extension SearchPhotoViewController: PhotoCollectionViewDelegate {
     func photoCollectionView(_ photoCollectionView: PhotoCollectionView, didSelectPhoto photo: FlickrPhoto) {
+        guard let url = photo.url else {
+            UIAlertController.presentErrorAlert(message: "SEARCH_VIEW.NO_PHOTO_URL_ERROR_MESSAGE".localized(), fromViewController: self)
+            return
+        }
         FullScreenImageViewController.presentImage(imageURL: url, fromViewController: self)
     }
 }

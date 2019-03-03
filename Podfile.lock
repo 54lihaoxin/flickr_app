@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   FlickrFoundation:
-    :commit: fb98fa4d53618be444f347e5248151294dc601fd
+    :commit: 714d8296c500599b4f746b157432e5eae9956ecd
     :git: https://github.com/54lihaoxin/flickr_foundation.git
 
 SPEC CHECKSUMS:

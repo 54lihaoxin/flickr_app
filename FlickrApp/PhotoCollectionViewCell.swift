@@ -51,7 +51,9 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     func configure(withPhoto photo: FlickrPhoto) {
         titleLabel.text = photo.title
-        imageView.loadImage(fromURL: photo.url.thumbnailURL)
+        if let url = photo.thumbnailURL(forScreenScale: UIScreen.main.scale) {
+            imageView.loadImage(fromURL: url)
+        } // else fail quietly
     }
 }
 
@@ -86,27 +88,5 @@ private extension PhotoCollectionViewCell {
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: Dimension.titleLabelHeight).isActive = true
-    }
-}
-
-private extension URL {
-    // See documentation at https://www.flickr.com/services/api/misc.urls.html
-    var thumbnailURL: URL {
-        // FIXME: The current implementation of generating the thumbnail URL is making some assumptions that might
-        // break easily in future refactoring, but considering the limited resource (time), this replace suffix
-        // approach is at work here.
-        let qualitySpecifier: String
-        if UIScreen.main.scale >= 3 {
-            qualitySpecifier = "n" // n: 320 on longest side
-        } else if UIScreen.main.scale >= 2 {
-            qualitySpecifier = "m" // m: 240 on longest side
-        } else { // scale == 1
-            qualitySpecifier = "q" // q: square 150x150
-        }
-
-        guard let url = URL(string: absoluteString.replacingOccurrences(of: ".jpg", with: "_\(qualitySpecifier).jpg")) else {
-            fatalError()
-        }
-        return url
     }
 }
