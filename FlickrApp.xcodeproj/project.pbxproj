@@ -21,6 +21,7 @@
 		AC5C6EF0222AEB1E0095DC14 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EEF222AEB1E0095DC14 /* UITableView+Extensions.swift */; };
 		AC5C6EF4222AF9BE0095DC14 /* PhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EF3222AF9BE0095DC14 /* PhotoCollectionView.swift */; };
 		AC5C6EF6222AFA860095DC14 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EF5222AFA860095DC14 /* Photo.swift */; };
+		AC5C6EFA222B506A0095DC14 /* KeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5C6EF9222B506A0095DC14 /* KeyboardToolbar.swift */; };
 		AC76780E2229658F001D2093 /* SearchPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC76780C2229658F001D2093 /* SearchPhotoViewController.swift */; };
 		ACB2CA6322263A15009EBF05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2CA6222263A15009EBF05 /* AppDelegate.swift */; };
 		ACB2CA6A22263A18009EBF05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACB2CA6922263A18009EBF05 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		AC5C6EEF222AEB1E0095DC14 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		AC5C6EF3222AF9BE0095DC14 /* PhotoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionView.swift; sourceTree = "<group>"; };
 		AC5C6EF5222AFA860095DC14 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		AC5C6EF9222B506A0095DC14 /* KeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbar.swift; sourceTree = "<group>"; };
 		AC76780C2229658F001D2093 /* SearchPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoViewController.swift; sourceTree = "<group>"; };
 		ACB2CA5F22263A15009EBF05 /* FlickrApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB2CA6222263A15009EBF05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		AC76781022296598001D2093 /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
+				AC5C6EF9222B506A0095DC14 /* KeyboardToolbar.swift */,
 				AC5C6EF3222AF9BE0095DC14 /* PhotoCollectionView.swift */,
 				AC5C6EE4222A2C760095DC14 /* PhotoCollectionViewCell.swift */,
 				AC76780C2229658F001D2093 /* SearchPhotoViewController.swift */,
@@ -362,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC5C6EE1222A153A0095DC14 /* NSObject+Extensions.swift in Sources */,
+				AC5C6EFA222B506A0095DC14 /* KeyboardToolbar.swift in Sources */,
 				ACB2CA6322263A15009EBF05 /* AppDelegate.swift in Sources */,
 				AC5C6EEE222AE3A50095DC14 /* TextTableView.swift in Sources */,
 				AC5C6EF4222AF9BE0095DC14 /* PhotoCollectionView.swift in Sources */,

@@ -29,11 +29,13 @@ final class SearchPhotoViewController: UIViewController {
 
     private var viewModel = ViewModel.emptyModel
     private var photoCellSize = CGSize.zero // update after we know the view dimension
+    private var previousSearchTerm: String? // put this back to search bar when cancelling the search
 
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = self
         searchBar.placeholder = ViewModel.Text.searchBarPlaceholder
+        searchBar.inputAccessoryView = KeyboardToolbar(unownedDelegate: self)
         return searchBar
     }()
 
@@ -63,12 +65,23 @@ final class SearchPhotoViewController: UIViewController {
 
 extension SearchPhotoViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        previousSearchTerm = searchBar.text
         showSearchHistory()
         return true
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchForSearchTerm(searchBar.text ?? "", pageNumber: 1)
+    }
+}
+
+// MARK: - KeyboardToolbarDelegate
+
+extension SearchPhotoViewController: KeyboardToolbarDelegate {
+    func keyboardToolbarDidHitCancelButton(_ keyboardToolbar: KeyboardToolbar) {
+        searchBar.text = previousSearchTerm
+        previousSearchTerm = nil
+        dismissSearchHistory()
     }
 }
 
@@ -126,6 +139,7 @@ private extension SearchPhotoViewController {
         searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        searchBar.inputAccessoryView?.sizeToFit()
     }
 
     func setUpPhotoCollectionView() {
