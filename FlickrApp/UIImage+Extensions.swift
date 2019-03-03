@@ -25,11 +25,11 @@ extension UIImageView {
     /**
      `completion` indicates whether the image is loaded successfully.
      */
-    func loadImage(fromURL url: URL, completion: @escaping (Bool) -> Void) {
+    func loadImage(fromURL url: URL, completion: ((Bool) -> Void)? = nil) {
         if let image = ImageCache.shared.image(forURL: url) {
             DispatchQueue.main.async {
                 self.image = image
-                completion(true)
+                completion?(true)
             }
             return
         }
@@ -41,19 +41,19 @@ extension UIImageView {
             guard let data = data,
                 !data.isEmpty,
                 let image = UIImage(data: data) else {
-                    completion(false)
+                    completion?(false)
                     return
             }
             ImageCache.shared.cacheImage(image, forURL: url)
 
             guard let self = self,
                 self.imageDataTaskID == dataTaskID else {
-                    completion(false)
+                    completion?(false)
                     return
             }
             DispatchQueue.main.async {
                 self.image = image
-                completion(true)
+                completion?(true)
             }
         }.resume()
     }

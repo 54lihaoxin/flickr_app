@@ -49,9 +49,7 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     func configure(withPhoto photo: Photo) {
         titleLabel.text = photo.title
-        imageView.loadImage(fromURL: photo.url) { _ in
-//            print("\(#function) load image successfully: \(successful)")
-        }
+        imageView.loadImage(fromURL: photo.url)
     }
 }
 
