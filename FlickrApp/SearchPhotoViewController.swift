@@ -34,9 +34,8 @@ final class SearchPhotoViewController: UIViewController {
         searchBar.inputAccessoryView = KeyboardToolbar(unownedDelegate: self)
         return searchBar
     }()
-
+    private lazy var loadingIndicator = UIActivityIndicatorView(style: .gray)
     private lazy var photoCollectionView = PhotoCollectionView(photoDataSource: self.viewModel, unownedDelegate: self)
-
     private weak var searchHistoryView: TextTableView?
 
     override func viewDidLoad() {
@@ -91,6 +90,18 @@ extension SearchPhotoViewController: PhotoCollectionViewDelegate {
         }
         FullScreenImageViewController.presentImage(imageURL: url, fromViewController: self)
     }
+
+    func showLoadingIndicator() {
+        DispatchQueue.main.async {
+            self.loadingIndicator.startAnimating()
+        }
+    }
+
+    func hideLoadingIndicator() {
+        DispatchQueue.main.async {
+            self.loadingIndicator.stopAnimating()
+        }
+    }
 }
 
 // MARK: - TextTableViewDelegate
@@ -108,8 +119,13 @@ private extension SearchPhotoViewController {
         title = ViewModel.Text.title
         view.backgroundColor = Color.backgroundColor
 
+        setUpLoadingIndicator()
         setUpSearchBar()
         setUpPhotoCollectionView()
+    }
+
+    func setUpLoadingIndicator() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: loadingIndicator)
     }
 
     func setUpSearchBar() {

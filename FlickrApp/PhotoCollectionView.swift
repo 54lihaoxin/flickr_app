@@ -20,6 +20,8 @@ protocol PhotoCollectionViewDataSource: class {
 
 protocol PhotoCollectionViewDelegate: class {
     func photoCollectionView(_ photoCollectionView: PhotoCollectionView, didSelectPhoto photo: FlickrPhoto)
+    func showLoadingIndicator()
+    func hideLoadingIndicator()
 }
 
 final class PhotoCollectionView: UICollectionView {
@@ -65,8 +67,11 @@ final class PhotoCollectionView: UICollectionView {
 
         let searchTerm = photoDataSource.searchTerm
         let oldPhotoCount = photoDataSource.fetchedPhotoCount
+
+        photoCollectionViewDelegate.showLoadingIndicator()
         photoDataSource.fetchMorePhotos { [weak self] successful in
             DispatchQueue.main.async {
+                self?.photoCollectionViewDelegate.hideLoadingIndicator()
                 guard let self = self,
                     successful,
                     !self.isScrolling, // if is scrolling, reload after stop scrolling
@@ -178,7 +183,11 @@ extension PhotoCollectionView {
 
         let searchTerm = photoDataSource.searchTerm
         let oldPhotoCount = photoDataSource.fetchedPhotoCount
+
+        photoCollectionViewDelegate.showLoadingIndicator()
         photoDataSource.fetchMorePhotos { [weak self] successful in
+            self?.photoCollectionViewDelegate.hideLoadingIndicator()
+
             guard let self = self,
                 successful,
                 searchTerm == self.photoDataSource.searchTerm else {
