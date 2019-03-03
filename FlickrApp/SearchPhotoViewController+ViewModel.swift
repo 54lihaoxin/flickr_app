@@ -51,11 +51,18 @@ extension SearchPhotoViewController.ViewModel: PhotoCollectionViewDataSource {
                 completion(true)
             case let .failure(errorMessage):
                 completion(false)
-                guard let presentingViewController =  AppDelegate.current?.window.rootViewController else {
-                    print("\(#function) error: \(errorMessage)")
-                    return
+                DispatchQueue.main.async {
+                    guard let presentingViewController =  AppDelegate.current?.window.rootViewController else {
+                        print("\(#function) error: \(errorMessage)")
+                        return
+                    }
+                    #if DEBUG
+                    UIAlertController.presentErrorAlert(message: errorMessage, fromViewController: presentingViewController)
+                    #else
+                    UIAlertController.presentErrorAlert(message: "SEARCH_VIEW.GENERIC_ERROR_MESSAGE".localized(),
+                                                        fromViewController: presentingViewController)
+                    #endif
                 }
-                UIAlertController.presentErrorAlert(message: errorMessage, fromViewController: presentingViewController)
             }
         }
     }

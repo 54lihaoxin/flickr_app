@@ -14,3 +14,4 @@
 
 "SEARCH_VIEW.SEARCH_BAR_PLACEHOLDER" = "Search for photos here";
 "SEARCH_VIEW.NO_PHOTO_URL_ERROR_MESSAGE" = "This photo does not have a valid URL";
+"SEARCH_VIEW.GENERIC_ERROR_MESSAGE" = "Something went wrong. Please check your Internet connection, or try searching for something different";
