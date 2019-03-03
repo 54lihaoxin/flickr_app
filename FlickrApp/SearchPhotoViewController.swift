@@ -9,10 +9,6 @@
 import FlickrFoundation
 import UIKit
 
-protocol SearchPhotoViewControllerDataSource {
-    // TODO
-}
-
 final class SearchPhotoViewController: UIViewController {
     private enum Color {
         static let backgroundColor = UIColor.white
@@ -39,7 +35,7 @@ final class SearchPhotoViewController: UIViewController {
         return searchBar
     }()
 
-    private lazy var photoCollectionView = PhotoCollectionView(photos: viewModel.photos, unownedDelegate: self)
+    private lazy var photoCollectionView = PhotoCollectionView(photoDataSource: self.viewModel, unownedDelegate: self)
 
     private weak var searchHistoryView: TextTableView?
 
@@ -96,7 +92,7 @@ extension SearchPhotoViewController: PhotoCollectionViewDelegate {
         return photoCellSize
     }
 
-    func photoCollectionView(_ photoCollectionView: PhotoCollectionView, didSelectPhoto photo: Photo) {
+    func photoCollectionView(_ photoCollectionView: PhotoCollectionView, didSelectPhoto photo: FlickrPhoto) {
         present(FullScreenImageViewController(imageURL: photo.url), animated: true, completion: nil)
     }
 }
@@ -106,17 +102,6 @@ extension SearchPhotoViewController: PhotoCollectionViewDelegate {
 extension SearchPhotoViewController: TextTableViewDelegate {
     func textTableView(_ textTableView: TextTableView, didSelectText text: String) {
         searchForSearchTerm(text, pageNumber: 1)
-    }
-}
-
-// MARK: - private business
-
-private extension SearchPhotoViewController {
-    func updateViewModel(_ viewModel: ViewModel) {
-        self.viewModel = viewModel
-        DispatchQueue.main.async {
-            self.photoCollectionView.updatePhotos(viewModel.photos)
-        }
     }
 }
 
@@ -171,18 +156,8 @@ private extension SearchPhotoViewController {
 
         searchBar.text = searchTerm
         SearchHistory.addSearchTerm(text: searchTerm)
-
-        KeywordSearchManager.shared.searchPhotos(searchTerm: searchTerm, pageNumber: pageNumber) { result in
-            switch result {
-            case let .success(searchTerm, pageNumber, photos, totalPageCount):
-                self.updateViewModel(ViewModel(searchTerm: searchTerm,
-                                               pageNumber: pageNumber,
-                                               photos: photos.compactMap { Photo(flickrPhoto: $0) },
-                                               totalPageCount: totalPageCount))
-            case let .failure(errorMessage):
-                UIAlertController.presentErrorAlert(message: errorMessage, fromViewController: self)
-            }
-        }
+        viewModel = ViewModel(searchTerm: searchTerm)
+        photoCollectionView.updatePhotoDataSource(viewModel)
     }
 }
 

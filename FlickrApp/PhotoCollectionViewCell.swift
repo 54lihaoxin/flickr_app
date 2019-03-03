@@ -6,11 +6,13 @@
 //  Copyright © 2019 Haoxin Li. All rights reserved.
 //
 
+import FlickrFoundation
 import UIKit
 
 final class PhotoCollectionViewCell: UICollectionViewCell {
     private enum Color {
         static let backgroundColor = UIColor.white
+        static let imageViewBackgroundColor = UIColor.lightGray
         static let labelBackgroundColor = UIColor.white.withAlphaComponent(0.7)
     }
 
@@ -20,9 +22,9 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
+        imageView.backgroundColor = Color.imageViewBackgroundColor
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = Color.backgroundColor
         return imageView
     }()
 
@@ -47,7 +49,7 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
         reset()
     }
 
-    func configure(withPhoto photo: Photo) {
+    func configure(withPhoto photo: FlickrPhoto) {
         titleLabel.text = photo.title
         imageView.loadImage(fromURL: photo.url)
     }

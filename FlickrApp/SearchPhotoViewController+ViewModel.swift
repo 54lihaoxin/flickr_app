@@ -15,20 +15,48 @@ extension SearchPhotoViewController {
             static let searchBarPlaceholder = "SEARCH_VIEW.SEARCH_BAR_PLACEHOLDER".localized()
         }
 
-        let searchTerm: String
-        let pageNumber: Int
-        let photos: [Photo]
-        let totalPageCount: Int
+        private let keywordSearchManager: KeywordSearchManager
 
         static var emptyModel: ViewModel {
-            return ViewModel(searchTerm: "", pageNumber: 1, photos: [], totalPageCount: 0)
+            return ViewModel(searchTerm: "")
         }
 
-        init(searchTerm: String, pageNumber: Int, photos: [Photo], totalPageCount: Int) {
-            self.searchTerm = searchTerm
-            self.pageNumber = pageNumber
-            self.photos = photos
-            self.totalPageCount = totalPageCount
+        var searchTerm: String {
+            return keywordSearchManager.searchTerm
         }
+
+        init(searchTerm: String) {
+            keywordSearchManager = KeywordSearchManager(searchTerm: searchTerm)
+        }
+    }
+}
+
+extension SearchPhotoViewController.ViewModel: PhotoCollectionViewDataSource {
+    var isFetchInProgress: Bool {
+        return keywordSearchManager.isFetchInProgress
+    }
+
+    var fetchedPhotoCount: Int {
+        return keywordSearchManager.photos.count
+    }
+
+    var totalNumberOfPhotos: Int {
+        return keywordSearchManager.totalResultCount
+    }
+
+    func fetchMorePhotos(completion: @escaping (Bool) -> Void) {
+        keywordSearchManager.fetchMorePhotos { result in
+            switch result {
+            case .success:
+                completion(true)
+            case let .failure(errorMessage):
+                completion(false)
+                print("\(#function) error: \(errorMessage)")
+            }
+        }
+    }
+
+    func photo(at index: Int) -> FlickrPhoto {
+        return keywordSearchManager.photos[index]
     }
 }
