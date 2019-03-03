@@ -51,6 +51,10 @@ final class FullScreenImageViewController: UIViewController {
         setUp()
         imageView.loadImage(fromURL: imageURL)
     }
+
+    static func presentImage(imageURL: URL, fromViewController presentingViewController: UIViewController) {
+        presentingViewController.present(FullScreenImageViewController(imageURL: imageURL), animated: true, completion: nil)
+    }
 }
 
 // MARK: - private

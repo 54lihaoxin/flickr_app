@@ -85,7 +85,7 @@ extension SearchPhotoViewController: KeyboardToolbarDelegate {
 
 extension SearchPhotoViewController: PhotoCollectionViewDelegate {
     func photoCollectionView(_ photoCollectionView: PhotoCollectionView, didSelectPhoto photo: FlickrPhoto) {
-        present(FullScreenImageViewController(imageURL: photo.url), animated: true, completion: nil)
+        FullScreenImageViewController.presentImage(imageURL: url, fromViewController: self)
     }
 }
 
