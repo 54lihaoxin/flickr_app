@@ -147,7 +147,7 @@ private extension SearchPhotoViewController {
         }
 
         searchBar.text = searchTerm
-        SearchHistory.addSearchTerm(text: searchTerm)
+        SearchHistory.shared.addSearchTerm(text: searchTerm)
         viewModel = ViewModel(searchTerm: searchTerm)
         photoCollectionView.updatePhotoDataSource(viewModel)
     }
@@ -161,7 +161,7 @@ private extension SearchPhotoViewController {
             prevSearchHistoryView.removeFromSuperview()
         }
 
-        let newSearchHistoryView = TextTableView(stringArray: SearchHistory.allSearchTerms, unownedDelegate: self)
+        let newSearchHistoryView = TextTableView(stringArray: SearchHistory.shared.allSearchTerms, unownedDelegate: self)
         self.searchHistoryView = newSearchHistoryView
         view.addSubview(newSearchHistoryView)
         newSearchHistoryView.translatesAutoresizingMaskIntoConstraints = false
