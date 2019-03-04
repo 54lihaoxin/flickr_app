@@ -11,7 +11,7 @@ import UIKit
 final class FullScreenImageViewController: UIViewController {
     private enum Dimension {
         static let dismissButtonDimension: CGFloat = 44
-        static let padding: CGFloat = 16
+        static let dismissButtonPadding: CGFloat = 32
     }
 
     private enum Font {
@@ -79,8 +79,8 @@ private extension FullScreenImageViewController {
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
         dismissButton.widthAnchor.constraint(equalToConstant: Dimension.dismissButtonDimension).isActive = true
         dismissButton.heightAnchor.constraint(equalToConstant: Dimension.dismissButtonDimension).isActive = true
-        dismissButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        dismissButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Dimension.padding).isActive = true
+        dismissButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Dimension.dismissButtonPadding).isActive = true
+        dismissButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Dimension.dismissButtonPadding).isActive = true
     }
 
     @objc func dismissView() {

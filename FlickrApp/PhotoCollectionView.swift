@@ -49,7 +49,7 @@ final class PhotoCollectionView: UICollectionView {
     }
 
     func updateLayoutParameters(padding: CGFloat, cellSize: CGSize) {
-        guard self.padding != padding, self.cellSize != cellSize else {
+        guard self.padding != padding || self.cellSize != cellSize else {
             return
         }
         self.padding = padding
